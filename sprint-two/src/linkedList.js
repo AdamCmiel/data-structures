@@ -31,25 +31,19 @@ var makeLinkedList = function(){
 
   list.removeHead = function(){
     if(this.head){
-      if (this.head.prev === null && this.head.next === null){
-        this.head = null;
-        this.tail = null;
+      if(!removeLastItem.apply(this)){
+        this.head      = this.head.next;
+        this.head.prev = null;
       }
-      this.head && (this.head = this.head.next);
-      this.head && (this.head.prev = null);
-      
     }
   };
 
   list.removeTail = function(){
     if(this.tail){
-      if (this.head.prev === null && this.head.next === null){
-        this.head = null;
-        this.tail = null;
+      if(!removeLastItem.apply(this)){
+        this.tail      = this.tail.prev;
+        this.tail.next = null;
       }
-      this.tail && (this.tail = this.tail.prev);
-      this.tail && (this.tail.next = null);
-      
     }
   };
 
@@ -70,10 +64,19 @@ var makeLinkedList = function(){
 };
 
 var makeNode = function(value){
-  var node = {};
-  node.value = value;
-  node.next = null;
-  node.prev = null;
+  return {
+    value: value,
+    next : null,
+    prev : null
+  };
+};
 
-  return node;
+//If there's only one item in the list, clear the list, list
+var removeLastItem = function(){
+  var lastItem = (this.head.prev === null && this.head.next === null);
+  if (lastItem){
+        this.head = null;
+        this.tail = null;
+  }
+  return lastItem;
 };

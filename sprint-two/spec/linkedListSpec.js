@@ -70,19 +70,18 @@ describe("linkedList", function() {
   it ('should not error if removeTail or removeHead is called on an empty list', function(){
     var bind = function(fn, context) {
       return function() {
-        return fn.apply(context, arguments)
-      }
-    }
+        return fn.apply(context, arguments);
+      };
+    };
     var removeHead = bind(linkedList.removeHead, linkedList);
 
-    //expect(removeHead).not.toThrow();
-    //expect(linkedList.removeTail()).not.toThrow();
-    //linkedList.addToTail(4);
-    //linkedList.removeTail();
-    //expect(linkedList.removeTail()).not.toThrow();
-    //linkedList.addToHead(178);
-    //linkedList.removeHead();
-    //expect(linkedList.removeHead()).not.toThrow();
+    linkedList.addToTail(4);
+    linkedList.removeTail();
+    linkedList.removeTail();
+
+    linkedList.addToHead(178);
+    linkedList.removeHead();
+    linkedList.removeHead();
   });
 
   it ('list head and list tail should be null when list empty', function(){
@@ -97,5 +96,15 @@ describe("linkedList", function() {
     expect(linkedList.head).to.equal(null);
     expect(linkedList.tail).to.equal(null);
 
+  });
+
+  it ("should expect the head's prev after removed head to be null", function(){
+    linkedList.addToHead(1);
+    linkedList.addToHead(2);
+    linkedList.addToHead(3);
+    linkedList.removeHead();
+    linkedList.removeTail();
+    expect(linkedList.head.prev).to.equal(null);
+    expect(linkedList.tail.next).to.equal(null);
   });
 });
