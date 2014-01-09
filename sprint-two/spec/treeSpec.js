@@ -63,4 +63,14 @@ describe("tree", function() {
     expect(removedTree.children[0].value).to.equal(7);
     expect(tree.children.length).to.equal(1);
   });
+  it("should return specifc removed tree", function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.addChild(5);
+    tree.children[0].addChild("first node");
+    tree.children[2].addChild("second node");
+    var removedTree = tree.children[0].removeFromParent();
+    assert.isTrue(tree.children[1].children[0].value === "second node");
+    assert.isTrue(removedTree.children[0].value === "first node");
+  });
 });

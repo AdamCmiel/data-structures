@@ -15,11 +15,11 @@ var treeMethods = {
     var newTree = makeTree(value);
     newTree.parent = this;
     if(this.children){
+      newTree.childID = this.children.length;
       this.children.push(newTree);
-      this.childID = this.children.length - 1;
     }else{
+      newTree.childID = 0;
       this.children = [newTree];
-      this.childID = 0;
     }
   },
   contains: function(target){
