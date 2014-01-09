@@ -32,7 +32,6 @@ describe("linkedList", function() {
     expect(linkedList.head.value).to.equal(4);
     console.log(linkedList);
     linkedList.removeHead();
-        console.log(linkedList);
     expect(linkedList.head.value).to.equal(5);
   });
 
