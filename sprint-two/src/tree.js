@@ -20,16 +20,11 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.contains = function(target){
-  var result = false;
   var children = this.children;
-  for(var i = 0; i<children.length; i++){
-    if (children[i] === target){
-      result = true;
-    }else{
-      result = children[i].contains(target);
-    }
+  if(children){
+    return _.some(children, function(child){
+      return (child.value === target) ? true : child.contains(target);
+    });
   }
-
-// return result;
 };
 
