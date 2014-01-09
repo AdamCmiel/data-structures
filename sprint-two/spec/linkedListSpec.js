@@ -57,6 +57,45 @@ describe("linkedList", function() {
     expect(linkedList.head.value).to.equal(5);
     expect(linkedList.tail.value).to.equal(5);
   });
+  it("should expect that the second refers to first", function(){
+    linkedList.addToTail(5);
+    linkedList.addToTail(6);
+    expect(linkedList.tail.prev.value).to.equal(5);
+  });
+  it("should be able to add to head.", function() {
+    linkedList.addToHead(5);
+    linkedList.addToHead(6);
+  });
 
-  // add more tests here to test the functionality of linkedList
+  it ('should not error if removeTail or removeHead is called on an empty list', function(){
+    var bind = function(fn, context) {
+      return function() {
+        return fn.apply(context, arguments)
+      }
+    }
+    var removeHead = bind(linkedList.removeHead, linkedList);
+
+    //expect(removeHead).not.toThrow();
+    //expect(linkedList.removeTail()).not.toThrow();
+    //linkedList.addToTail(4);
+    //linkedList.removeTail();
+    //expect(linkedList.removeTail()).not.toThrow();
+    //linkedList.addToHead(178);
+    //linkedList.removeHead();
+    //expect(linkedList.removeHead()).not.toThrow();
+  });
+
+  it ('list head and list tail should be null when list empty', function(){
+    expect(linkedList.head).to.equal(null);
+    expect(linkedList.tail).to.equal(null);
+    linkedList.addToHead("lol");
+    linkedList.removeHead();
+    expect(linkedList.head).to.equal(null);
+    expect(linkedList.tail).to.equal(null);
+    linkedList.addToTail("lol");
+    linkedList.removeTail();
+    expect(linkedList.head).to.equal(null);
+    expect(linkedList.tail).to.equal(null);
+
+  });
 });
