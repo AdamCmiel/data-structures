@@ -5,7 +5,7 @@ describe("tree", function() {
   var tree;
 
   beforeEach(function() {
-    tree = makeTree();
+    tree = makeTree("topNode");
   });
 
   it("should have methods named 'addChild' and 'contains', and a property named 'value'", function() {
@@ -43,5 +43,24 @@ describe("tree", function() {
     assert.isTrue(tree.contains(7));
     assert.isTrue(tree.contains(8));
   });
-
+  it("should correctly point to parent trees", function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.children[0].addChild(7);
+    assert.isTrue(tree.children[0].children[0].parent.value === 5);
+    assert.isTrue(tree.children[0].parent.value === "topNode");
+  });
+  it("should remove child from tree", function(){
+    tree.addChild(5);
+    tree.children[0].removeFromParent();
+    expect(tree.children).to.equal(null);
+  });
+  it("should return the removed tree", function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.children[0].addChild(7);
+    var removedTree = tree.children[0].removeFromParent();
+    expect(removedTree.children[0].value).to.equal(7);
+    expect(tree.children.length).to.equal(1);
+  });
 });
