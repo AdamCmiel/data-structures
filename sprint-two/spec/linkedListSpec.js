@@ -52,5 +52,11 @@ describe("linkedList", function() {
     assert.isTrue(linkedList.contains(5));
   });
 
+  it("should make new node the head and the tail of an empty list", function(){
+    linkedList.addToTail(5);
+    expect(linkedList.head.value).to.equal(5);
+    expect(linkedList.tail.value).to.equal(5);
+  });
+
   // add more tests here to test the functionality of linkedList
 });
