@@ -25,6 +25,7 @@ var treeMethods = {
   contains: function(target){
     var children = this.children;
     if(children){
+      //_.some will return a boolean
       return _.some(children, function(child){
         return (child.value === target) ? true : child.contains(target);
       });
