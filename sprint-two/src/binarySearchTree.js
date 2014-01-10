@@ -24,8 +24,14 @@ var binarySearchTreeMethods = {
       this.value = value;
     }
   },
-  contains:      function(value) {
-
+  contains:      function(target) {
+    if (this.value === target){
+      return true;
+    } else if (target > this.value) {
+      return (this.right) ? this.contains.call(this.right, target) : false;
+    } else {
+      return (this.left)  ? this.contains.call(this.left , target) : false;
+    }
   },
   traverse:        function(callback) {
 
