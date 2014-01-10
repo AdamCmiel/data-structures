@@ -32,6 +32,7 @@ describe("hashTable", function() {
   });
 
   it("should handle hash function collisions", function(){
+    debugger;
     expect(window.getIndexBelowMaxForKey).to.be.ok;
     var v1 = 'val3', v2 = 'aal';
     hashTable.insert(v1, v1);

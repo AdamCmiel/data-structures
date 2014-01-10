@@ -11,17 +11,39 @@ HashTable.prototype = {
     if(this._storage[i]){
       var subArray = [];
       subArray.push(this._storage[i]);
-      this._storage[i] = subArray.push(newHash);
+      subArray.push(newHash);
+      this._storage[i] = subArray;
     }else{
       this._storage[i] = newHash;
     }
   },
   retrieve: function(k){
     var i = getIndexBelowMaxForKey(k, this._limit);
-    return this._storage[i][k];
+    if(Array.isArray(this._storage[i])){
+      var out;
+       _.each(this._storage[i], function(value,idx){
+        if(Object.keys(value)[0] === k ){
+          out = value[k];
+        }
+      });
+      return out;
+    }else if(this._storage[i]){
+      return this._storage[i][k];
+    }else{
+      return null;
+    }
+
   },
   remove: function(k){
     var i = getIndexBelowMaxForKey(k, this._limit);
-    this._storage[i] = null;
+    if(Array.isArray(this._storage[i])){
+      _.each(this._storage[i], function(value){
+        if(value[key] === ""+k){
+          this._storage = null;
+        }
+      });
+    }else{
+      this._storage[i] = null;
+    }
   }
 };
