@@ -28,16 +28,19 @@ var binarySearchTreeMethods = {
     if (this.value === target){
       return true;
     } else if (target > this.value) {
-      return (this.right) ? this.contains.call(this.right, target) : false;
+      return (this.right) ? this.right.contains(target) : false;
     } else {
-      return (this.left)  ? this.contains.call(this.left , target) : false;
+      return (this.left)  ? this.left .contains(target) : false;
     }
   },
-  traverse:        function(callback) {
-
-  },
-  depthFirstLog:   function(callback) {
-
+  depthFirstLog:        function(callback) {
+    callback.call(this, this.value);
+    if (this.left){
+      this.left.traverse(callback);
+    }
+    if (this.right){
+      this.right.traverse(callback);
+    }
   },
   breadthFirstLog: function(callback) {
 
