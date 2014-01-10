@@ -36,10 +36,10 @@ var binarySearchTreeMethods = {
   depthFirstLog:        function(callback) {
     callback.call(this, this.value);
     if (this.left){
-      this.left.traverse(callback);
+      this.left. depthFirstLog(callback);
     }
     if (this.right){
-      this.right.traverse(callback);
+      this.right.depthFirstLog(callback);
     }
   },
   breadthFirstLog: function(callback) {
