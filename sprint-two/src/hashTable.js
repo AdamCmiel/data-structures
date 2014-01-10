@@ -20,13 +20,12 @@ HashTable.prototype = {
   retrieve: function(k){
     var i = getIndexBelowMaxForKey(k, this._limit);
     if(Array.isArray(this._storage[i])){
-      var out;
-       _.each(this._storage[i], function(value,idx){
+      var result = _.filter(this._storage[i], function(value){
         if(Object.keys(value)[0] === k ){
-          out = value[k];
+          return  true;
         }
       });
-      return out;
+      return result[0][k];
     }else if(this._storage[i]){
       return this._storage[i][k];
     }else{
