@@ -1,4 +1,4 @@
-var assert = chai.assert; 
+  var assert = chai.assert; 
 
 describe("binarySearchTree", function() {
   var binarySearchTree;
@@ -35,17 +35,6 @@ describe("binarySearchTree", function() {
     binarySearchTree.insert(2);
     binarySearchTree.insert(3);
     binarySearchTree.depthFirstLog(func);
-    console.log(array);
-    console.log(_.isEqual(array, _.intersection(array, [5,3,2])));
-    console.log(_.intersection(array, [5,2,3]));
-    expect(_.isEqual(array, _.intersection(array, [5,2,3]))).to.be.true;
-  });
-  it("should execute a callback on every value in a tree using 'traverse'", function(){
-    var array = [];
-    var func  = function(value){ array.push(value); };
-    binarySearchTree.insert(2);
-    binarySearchTree.insert(3);
-    binarySearchTree.traverse(func);
     expect(_.isEqual(array, _.intersection(array, [5,2,3]))).to.be.true;
   });
 });
