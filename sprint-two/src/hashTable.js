@@ -1,5 +1,5 @@
 var HashTable = function(){
-  this.contains = 0;
+  this._contains = 0;
   this._limit = 8;
   this._storage = this.makeStorage()
 };
@@ -11,7 +11,10 @@ HashTable.prototype = {
       return [];
     });
   },
-  insert:  function(k, v){
+  insert:  function(k, v, options){
+    if (!options) {
+      this._contains++;
+    }
     var i = getIndexBelowMaxForKey(k, this._limit);
     var newPair = [k,v];
     if(this._storage[i]){
@@ -19,8 +22,8 @@ HashTable.prototype = {
     }else{
       this._storage[i] = [newPair];
     }
-    this.contains ++;
-    if (this.contains >= 0.75*this._limit){
+    debugger;
+    if (this._contains >= 0.75*this._limit){
       this.resize({double: true});
     }
   },
@@ -47,8 +50,8 @@ HashTable.prototype = {
         }
       }
     });
-    this.contains--;
-    if (this.contains <= 0.25*this._limit){
+    this._contains--;
+    if (this._contains <= 0.25*this._limit){
       this.resize({half:true});
     }   
   },
@@ -91,7 +94,7 @@ HashTable.prototype = {
       //debugger;
       var key = pair[0];
       var value = pair[1];
-      that.insert(key, value);
+      that.insert(key, value, {increment: false});
     });
   }
 };
