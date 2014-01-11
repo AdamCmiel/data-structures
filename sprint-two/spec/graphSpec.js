@@ -41,6 +41,7 @@ describe("graph", function() {
     graph.addNode("bananas");
     graph.addNode("satsumas", "bananas");
     graph.addEdge("satsumas", "apples")
+    assert.isTrue(graph.getEdge("apples", "bananas"));
     graph.removeEdge("apples", "bananas")
     assert.isFalse(graph.getEdge("apples", "bananas"));
   });
