@@ -30,18 +30,34 @@ var BloomFilter;
         return hashFxn.call(that, item);
       });
       return _.reduce(hashedIndicies, function(memo, index){
-        return memo && that._storage[index];
+        if (memo){
+          return that._storage[index];
+        } else {
+          return false;
+        }
       }, true);
     }
   };
 
   var h1 = function(key){
+    var hash = 31;
+    _.each(key.split(""), function(letter){
+      hash = hash << letter.charCodeAt(0)+hash;
+    }); 
     return hash % this._limit;
   };
   var h2 = function(key){
+    var hash = 117;
+    _.each(key.split(""), function(letter){
+      hash = letter.charCodeAt(0)+ (hash << 6) + (hash << 16) - hash;
+    })
     return hash % this._limit;
   };
   var h3 = function(key){
+    var hash = 0;
+    _.each(key.split(""), function(letter){
+      hash = Math.pow(hash, hash)+letter.charCodeAt(0);
+    });
     return hash % this._limit;
   };
   var hashes = [h1,h2,h3];

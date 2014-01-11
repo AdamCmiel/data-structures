@@ -22,6 +22,6 @@ describe("Bloom Filter", function() {
   	var set = ["a", "b", "c", "d", "e", "f", "g", "h", "i",
   			   "j", "k", "l", "m", "n", "o", "p", "q", "r"];
     bloomFilter.store(set);
-    assert.isTrue(bloomFilter.has("I'm not in here"));
+    assert.isTrue(bloomFilter.has("z"));
   })
 });
