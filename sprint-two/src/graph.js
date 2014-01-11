@@ -1,20 +1,24 @@
 var Graph = function(){
+  this.nodes = {};
 };
 
-Graph.prototype.addNode = function(newNode, toNode){
-};
+var Node = function(value, edge){
+  this.value = value;
+}
 
-Graph.prototype.contains = function(node){
-};
-
-Graph.prototype.removeNode = function(node){
-};
-
-Graph.prototype.getEdge = function(fromNode, toNode){
-};
-
-Graph.prototype.addEdge = function(fromNode, toNode){
-};
-
-Graph.prototype.removeEdge = function(fromNode, toNode){
+Graph.prototype = {
+  addNode: function(newNode, toNode){
+    this.nodes[newNode] = new Node(newNode);
+  },
+  contains: function(node){
+    return !!this.nodes[node];
+  },
+  removeNode: function(node){
+  },
+  getEdge: function(fromNode, toNode){
+  },
+  addEdge: function(fromNode, toNode){
+  },
+  removeEdge: function(fromNode, toNode){
+  }
 };
