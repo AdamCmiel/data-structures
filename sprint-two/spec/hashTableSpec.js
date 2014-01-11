@@ -43,7 +43,7 @@ describe("hashTable", function() {
   it("should handle arrays as values", function(){
     var test = ["test array"];
     hashTable.insert("Steven", test);
-    expect(hashTable.retrieve("Steven")).to.equal(["test array"]);
+    expect(_.isEqual(test, hashTable.retrieve("Steven"))).to.be.true;
   });
   
   // (Extra credit! Remove the extra 'x' when you want the following tests to run)
