@@ -73,4 +73,13 @@ describe("tree", function() {
     assert.isTrue(tree.children[1].children[0].value === "second node");
     assert.isTrue(removedTree.children[0].value === "first node");
   });
+  it ("should call a function on all nodes in a tree", function(){
+    var results = [];
+    tree.addChild(2);
+    tree.addChild(3);
+    tree.traverse(function(){
+      results.push(this.value);
+    });
+    expect(_.intersection(results, ["topNode",2,3]).length).to.equal(3);
+  });
 });

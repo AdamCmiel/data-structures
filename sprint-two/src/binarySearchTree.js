@@ -12,9 +12,7 @@ var binarySearchTreeMethods = {
     var newNode = function(){
       return makeBinarySearchTree(value);
     };
-    //debugger;
     if (this && this.value){
-      //debugger;
       if (value > this.value) {
         this.right ? this.right.insert(value) : (this.right = newNode());
       } else if (value < this.value) {
@@ -43,6 +41,18 @@ var binarySearchTreeMethods = {
     }
   },
   breadthFirstLog: function(callback) {
-
+    var queue = [];
+    var inspection;
+    queue.push(this);
+    while(queue.length > 0){
+      inspection = queue.shift();
+      if (inspection.left){
+        queue.push(inspection.left);
+      }
+      if (inspection.right){
+        queue.push(inspection.right);
+      }
+      callback(inspection.value);
+    }
   }
 };

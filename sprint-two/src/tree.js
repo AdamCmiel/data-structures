@@ -14,7 +14,7 @@ var treeMethods = {
   addChild: function(value){
     var newTree = makeTree(value);
     newTree.parent = this;
-    if(this.children){
+    if (this.children){
       newTree.childID = this.children.length;
       this.children.push(newTree);
     }else{
@@ -24,7 +24,7 @@ var treeMethods = {
   },
   contains: function(target){
     var children = this.children;
-    if(children){
+    if (children){
       //_.some will return a boolean
       return _.some(children, function(child){
         return (child.value === target) ? true : child.contains(target);
@@ -41,5 +41,13 @@ var treeMethods = {
       this.parent = null;
     }
     return this;
+  },
+  traverse: function(fn){
+    if (this.children){
+      _.each(this.children, function(child){
+        child.traverse(fn);
+      });
+    }
+    fn.call(this);
   }
 };

@@ -6,8 +6,7 @@ var makeLinkedList = function(){
   list.addToTail = function(value){
     var newNode = makeNode(value);
     if (!this.head) {
-      this.tail = newNode;
-      this.head = newNode;
+      this.tail = this.head = newNode;
     }else{
       newNode.prev = this.tail;
       this.tail.next = newNode;
@@ -18,8 +17,7 @@ var makeLinkedList = function(){
   list.addToHead = function(value){
     var newNode = makeNode(value);
     if(!this.head){
-      this.tail = newNode;
-      this.head = newNode;
+      this.tail = this.head = newNode;
     }else{
       newNode.next = this.head;
       this.head.prev = newNode;
