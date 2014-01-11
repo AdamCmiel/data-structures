@@ -14,8 +14,12 @@ Graph.prototype = {
     this.nodes[newNode] = nodeAdded;
     
     if (nodeKeys.length === 1) {
+      debugger;
       var firstNode = this.nodes[nodeKeys[0]];
-      this.addEdge(firstNode, nodeAdded);
+      this.addEdge(firstNode.value, nodeAdded.value);
+    }
+    if (toNode){
+      this.addEdge(nodeAdded.value, toNode)
     }
   },
   contains: function(node){
@@ -30,9 +34,11 @@ Graph.prototype = {
     return !!this.nodes[fromNode].edges[toNode];
   },
   addEdge: function(fromNode, toNode){
-    fromNode.edges[toNode.value] = toNode;
-    toNode.edges[fromNode.value] = fromNode;
+    this.nodes[fromNode].edges[toNode] = toNode;
+    this.nodes[toNode].edges[fromNode] = fromNode;
   },
   removeEdge: function(fromNode, toNode){
+    delete this.nodes[fromNode].edges[toNode.value];
+    delete this.nodes[toNode].edges[fromNode.value];
   }
 };
