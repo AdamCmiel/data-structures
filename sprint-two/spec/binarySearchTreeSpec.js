@@ -1,4 +1,4 @@
-  var assert = chai.assert; 
+var assert = chai.assert; 
 
 describe("binarySearchTree", function() {
   var binarySearchTree;
@@ -38,17 +38,31 @@ describe("binarySearchTree", function() {
     expect(_.isEqual(array, _.intersection(array, [5,2,3]))).to.be.true;
   });
   it("should execute a callback in the correct order", function(){
-    binarySearchTree.insert(4);
     binarySearchTree.insert(3);
     binarySearchTree.insert(7);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(4);
     binarySearchTree.insert(6);
     binarySearchTree.insert(8);
-    binarySearchTree.insert(2);
-    var expectation = [5,4,7,2,3,6,8];
+    
+    var expectation = [5,3,7,2,4,6,8];
     var result = [];
     binarySearchTree.breadthFirstLog(function(value){
       result.push(value);
     });
+    console.log(result);
+    console.log(expectation);
     expect(_.isEqual(expectation, result)).to.be.true;
-  })
+  });
+  it("should handle being fed numbers that conflict", function(){
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
+    var result = [];
+    binarySearchTree.breadthFirstLog(function(value){
+      result.push(value);
+    });
+    console.log(result);
+  });
 });

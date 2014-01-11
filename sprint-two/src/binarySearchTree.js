@@ -42,16 +42,20 @@ var binarySearchTreeMethods = {
   },
   breadthFirstLog: function(callback) {
     var queue = [];
+    var queueVal = [];
     var inspection;
     queue.push(this);
     while(queue.length > 0){
-      inspection = queue.shift();
+      console.log(queueVal);
+      inspection = queue.pop();
       if (inspection.left){
-        queue.push(inspection.left);
+        queue.unshift(inspection.left);
       }
       if (inspection.right){
-        queue.push(inspection.right);
+        queue.unshift(inspection.right);
       }
+      queueVal.unshift(inspection.value);
+
       callback(inspection.value);
     }
   }
