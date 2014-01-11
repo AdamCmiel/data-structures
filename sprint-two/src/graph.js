@@ -38,7 +38,17 @@ Graph.prototype = {
     this.nodes[toNode].edges[fromNode] = fromNode;
   },
   removeEdge: function(fromNode, toNode){
-    delete this.nodes[fromNode].edges[toNode];
-    delete this.nodes[toNode].edges[fromNode];
+    var fromEdges = this.nodes[fromNode].edges;
+    var toEdges   = this.nodes[toNode].edges;
+
+    delete fromEdges[toNode];
+    delete toEdges[fromNode];
+
+    if (Object.keys(fromEdges).length === 0){
+      this.removeNode(fromNode);
+    }
+    if (Object.keys(toEdges).length === 0){
+      this.removeNode(toNode);
+    }
   }
 };
