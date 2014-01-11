@@ -16,6 +16,7 @@ describe("graph", function() {
   });
   it("should store values as nodes that were inserted", function() {
     graph.addNode("kittens");
+    assert.isTrue(graph.contains("kittens"));
   });
   it("should remove nodes that were inserted", function() {
     graph.addNode("puppies");

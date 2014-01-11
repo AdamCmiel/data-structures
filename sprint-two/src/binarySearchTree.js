@@ -46,7 +46,6 @@ var binarySearchTreeMethods = {
     var inspection;
     queue.push(this);
     while(queue.length > 0){
-      console.log(queueVal);
       inspection = queue.pop();
       if (inspection.left){
         queue.unshift(inspection.left);

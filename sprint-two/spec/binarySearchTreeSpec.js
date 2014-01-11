@@ -50,19 +50,6 @@ describe("binarySearchTree", function() {
     binarySearchTree.breadthFirstLog(function(value){
       result.push(value);
     });
-    console.log(result);
-    console.log(expectation);
     expect(_.isEqual(expectation, result)).to.be.true;
-  });
-  it("should handle being fed numbers that conflict", function(){
-    binarySearchTree.insert(4);
-    binarySearchTree.insert(7);
-    binarySearchTree.insert(2);
-    binarySearchTree.insert(3);
-    var result = [];
-    binarySearchTree.breadthFirstLog(function(value){
-      result.push(value);
-    });
-    console.log(result);
   });
 });
