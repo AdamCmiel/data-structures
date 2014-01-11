@@ -22,8 +22,7 @@ HashTable.prototype = {
     }else{
       this._storage[i] = [newPair];
     }
-    debugger;
-    if (this._contains >= 0.75*this._limit){
+    if (this._contains > 0.75*this._limit){
       this.resize({double: true});
     }
   },
@@ -51,7 +50,8 @@ HashTable.prototype = {
       }
     });
     this._contains--;
-    if (this._contains <= 0.25*this._limit){
+    debugger;
+    if (this._contains < 0.25*this._limit){
       this.resize({half:true});
     }   
   },
