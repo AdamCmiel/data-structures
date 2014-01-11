@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <link rel="stylesheet" href="../lib/mocha/mocha.css" />
+    <script src="../lib/jquery/jquery.js"></script>
+    <script src="../lib/mocha/mocha.js"></script>
+    <script src="../lib/chai/chai.js"></script>
+    <script src="../lib/underscore/underscore.js"></script>
+    <script>mocha.setup('bdd')</script>
+    
+    <!-- source files -->
+    <script type="text/javascript" src="src/bloom.js"></script>
+    <script type="text/javascript" src="src/prefixTree.js"></script>
+    <script type="text/javascript" src="src/redBlackTree.js"></script>
+    <script type="text/javascript" src="src/bTree.js"></script>
+    <script type="text/javascript" src="src/scrabble.js"></script>
+
+
+    <!-- spec files -->
+    <script type="text/javascript" src="spec/bloomSpec.js"></script>
+    <script type="text/javascript" src="spec/prefixTreeSpec.js"></script>
+    <script type="text/javascript" src="spec/redBlackTreeSpec.js"></script>
+    <script type="text/javascript" src="spec/bTreeSpec.js"></script>
+    <script type="text/javascript" src="spec/scrabbleSpec.js"></script>
+
+    <script>
+      $(function() {
+        window.mochaPhantomJS ? mochaPhantomJS.run() : mocha.run();
+      })
+    </script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+  </body>
+</html>
