@@ -14,6 +14,9 @@ Graph.prototype = {
     return !!this.nodes[node];
   },
   removeNode: function(node){
+    if (this.nodes[node]){
+      delete this.nodes[node];
+    }
   },
   getEdge: function(fromNode, toNode){
   },
