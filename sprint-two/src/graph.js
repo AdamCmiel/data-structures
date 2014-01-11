@@ -5,7 +5,7 @@ var Graph = function(){
 var Node = function(value){
   this.value = value;
   this.edges = {};
-}
+};
 
 Graph.prototype = {
   addNode: function(newNode, toNode){
@@ -14,7 +14,6 @@ Graph.prototype = {
     this.nodes[newNode] = nodeAdded;
     
     if (nodeKeys.length === 1) {
-      debugger;
       var firstNode = this.nodes[nodeKeys[0]];
       this.addEdge(firstNode.value, nodeAdded.value);
     }
@@ -50,5 +49,10 @@ Graph.prototype = {
     if (Object.keys(toEdges).length === 0){
       this.removeNode(toNode);
     }
+  },
+  forEachNode: function(fn) {
+    _.each(this.nodes, function(node){
+      fn.call(node);
+    });
   }
 };

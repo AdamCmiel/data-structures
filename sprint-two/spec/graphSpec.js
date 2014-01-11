@@ -52,4 +52,17 @@ describe("graph", function() {
     assert.isFalse(graph.contains("hat"));
     assert.isFalse(graph.contains("jacket"));
   });
+  it("should execute a callback function on every node in graph", function(){
+    var result = [];
+    var callback = function(){
+      result.push(this.value);
+    }
+    graph.addNode("puppies");
+    graph.addNode("kittens");
+    graph.addNode("penguins", "puppies");
+    graph.addNode("doggies", "kittens");
+    var expected = ["puppies", "kittens", "penguins", "doggies"];
+    graph.forEachNode(callback);
+    expect(_.intersection(result,expected).length).to.equal(4);
+  });
 });
