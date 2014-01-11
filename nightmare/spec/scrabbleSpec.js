@@ -1,6 +1,6 @@
 var assert = chai.assert; 
 
-describe("", function() {
+describe("Scrabble Bag", function() {
 
   beforeEach(function() {
   });

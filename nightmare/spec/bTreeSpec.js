@@ -1,6 +1,6 @@
 var assert = chai.assert; 
 
-describe("", function() {
+describe("B-Tree", function() {
 
   beforeEach(function() {
   });
