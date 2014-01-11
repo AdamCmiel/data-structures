@@ -1,52 +1,58 @@
 var HashTable = function(){
+  this.contains = 0;
   this._limit = 8;
-  this._storage = makeLimitedArray(this._limit);
+  this._storage = this.makeStorage()
 };
 
 HashTable.prototype = {
+  makeStorage: function(){
+    var that = this;
+    return _.map(Array(that._limit) , function(bucket){
+      return [];
+    });
+  },
   insert:  function(k, v){
     var i = getIndexBelowMaxForKey(k, this._limit);
-    var newHash = {};
-    newHash[k]=v;
+    var newPair = [k,v];
     if(this._storage[i]){
-      var subArray = [];
-      subArray.push(this._storage[i]);
-      subArray.push(newHash);
-      this._storage[i] = subArray;
+      this._storage[i].push(newPair);
     }else{
-      this._storage[i] = newHash;
+      this._storage[i] = [newPair];
+    }
+    this.contains ++;
+    if (this.contains >= 0.75*this._limit){
+      this.resize({double: true});
     }
   },
   retrieve: function(k){
     var i = getIndexBelowMaxForKey(k, this._limit);
-    if(Array.isArray(this._storage[i])){
-      var result = _.filter(this._storage[i], function(value){
-        if(Object.keys(value)[0] === k ){
-          return  true;
-        }
+    var out = null;
+    if(this._storage[i]){
+      out = _.filter(this._storage[i], function(item){
+        return item[0] === k;
       });
-      return result[0][k];
-    }else if(this._storage[i]){
-      return this._storage[i][k];
+      return out[0][1];
     }else{
-      return null;
+      return out;
     }
-
   },
   remove: function(k){
     var i = getIndexBelowMaxForKey(k, this._limit);
-    if(Array.isArray(this._storage[i])){
-      _.each(this._storage[i], function(value){
-        if(value[key] === ""+k){
-          this._storage = null;
+    var out = null;
+    var that = this;
+    _.each(that._storage[i], function(item, index){
+      if (item[0] === k){
+        for (var j = index; j<that._storage.length; j++){
+            that._storage[i][j] = that._storage[i][j+1];
         }
-      });
-    }else{
-      this._storage[i] = null;
-    }
+      }
+    });
+    this.contains--;
+    if (this.contains <= 0.25*this._limit){
+      this.resize({half:true});
+    }   
   },
-  resize: function(){
-    var keyValuePairs = [];
+  resize: function(options){
 
     /*key value pairs are stored in objects or arrays of objects
     this._storage = {
@@ -57,23 +63,35 @@ HashTable.prototype = {
 
     in this instance i(k2) === i(k4) and there was a collision
     /**/
+    var keyValuePairs = [];
+
     _.each(this._storage, function(bucket, key){
-      if (Array.isArray(bucket)){
+      if (bucket){
         _.each(bucket, function(item){
-          keyValuePairs.push(item);
+          if (item) {
+            keyValuePairs.push(item);
+          }
         });
-      } else {
-        keyValuePairs.push(bucket);
       }
     });
     
-    this._limit *=2;
-    this._storage = {};
+    if (options.double){
+      this._limit *=2;
+    } else if (options.half){
+      this._limit /=2;
+    } else {
+      error("Put in a proper parameter dumbass");
+    }
+
+    this._storage = this.makeStorage();
+
+    var that = this;
 
     _.each(keyValuePairs, function(pair){
-      var key = Object.keys(pair)[0];
-      var value = pair[key];
-      this.insert(key, value);
+      //debugger;
+      var key = pair[0];
+      var value = pair[1];
+      that.insert(key, value);
     });
   }
 };
