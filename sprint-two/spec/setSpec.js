@@ -26,5 +26,17 @@ describe("set", function() {
     set.remove('Mel Gibson');
     assert.isFalse(set.contains('Mel Gibson'));
   });
-
+  it("should handle numbers as well as strings", function(){
+    set.add(4);
+    assert.isTrue(set.contains(4));
+  });
+  it("should be able to handle objects of any type", function(){
+    set.add({a: 234});
+    assert.isTrue(set.contains({a: 234}));
+  });
+  it("should be able to remove objects of any type", function(){
+    set.add({a: 234});
+    set.remove({a:234});
+    assert.isFalse(set.contains({a: 234}));
+  });
 });
