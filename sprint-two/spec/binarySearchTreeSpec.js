@@ -64,4 +64,27 @@ describe("binarySearchTree", function() {
     });
     expect(_.isEqual(result, [8,4,12,2,6,10,14,1,3,5,7,9,11,13,15,16])).to.be.true;
   });
+  it("should return the maximum depth of the tree", function(){
+    var values = [1,2,3,4,6,7];
+    _.each(values, function(val){
+      binarySearchTree.insert(val);
+    });
+    expect(binarySearchTree.maxDepth()).to.equal(2);
+  });
+  it("should return the minimum depth of the tree", function(){
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(3);
+    expect(binarySearchTree.minDepth()).to.equal(0);
+    binarySearchTree.insert(6);
+    expect(binarySearchTree.minDepth()).to.equal(1);
+  });
+  it("should auto-rebalance when the maxDepth is more than two times the min depth", function(){
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(8);
+    binarySearchTree.insert(9);
+    console.log(binarySearchTree.minDepth());
+    console.log(binarySearchTree.maxDepth());
+    expect(binarySearchTree.maxDepth()).to.equal(2);
+  });
 });

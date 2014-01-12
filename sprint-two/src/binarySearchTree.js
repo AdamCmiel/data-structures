@@ -2,13 +2,13 @@ var makeBinarySearchTree = function(value){
   var newBST = {
     right: null,
     left : null,
-    value: value
+    value: value,
   };
   return _.extend(newBST, binarySearchTreeMethods);
 };
 
 var binarySearchTreeMethods = {
-  insert:      function(value) {
+  insert:      function(value, rebalancing) {
     var newNode = function(){
       return makeBinarySearchTree(value);
     };
@@ -20,6 +20,12 @@ var binarySearchTreeMethods = {
       }
     } else {
       this.value = value;
+    }
+    if(!rebalancing && this.maxDepth() > 2){
+      if(this.maxDepth() > 2*this.minDepth()){
+        debugger;
+        this.rebalance();
+      }
     }
   },
   contains:      function(target) {
@@ -42,7 +48,6 @@ var binarySearchTreeMethods = {
   },
   breadthFirstLog: function(callback) {
     var queue = [];
-    var queueVal = [];
     var inspection;
     queue.push(this);
     while(queue.length > 0){
@@ -53,8 +58,6 @@ var binarySearchTreeMethods = {
       if (inspection.right){
         queue.unshift(inspection.right);
       }
-      queueVal.unshift(inspection.value);
-
       callback(inspection.value);
     }
   }, 
@@ -86,7 +89,33 @@ var binarySearchTreeMethods = {
 
     //Fill the tree
     _.each(queue, function(node){
-      tree.insert(node);
+      tree.insert(node, true);
     });
+  },
+  maxDepth: function(){
+    var maximumDepth  = 0;
+    var depth = function(dep){
+      if ((dep+1)>maximumDepth) maximumDepth = dep+1;
+      this.left  && depth.call(this.left , dep+1);
+      this.right && depth.call(this.right, dep+1);
+    }
+    depth.call(this, 0);
+    return maximumDepth-1;
+  },
+  minDepth: function(){
+    var count = 0;
+    var queue = [];
+    var inspection;
+    queue.push(this);
+    while(queue.length > 0){
+      inspection = queue.pop();
+      count++; 
+      if (inspection.left && inspection.right){
+        queue.unshift(inspection.left);
+        queue.unshift(inspection.right);
+      } else {
+        return Math.floor(Math.log(count)/Math.log(2));
+      }
+    }
   }
 };
