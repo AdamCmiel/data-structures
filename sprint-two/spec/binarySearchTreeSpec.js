@@ -52,4 +52,16 @@ describe("binarySearchTree", function() {
     });
     expect(_.isEqual(expectation, result)).to.be.true;
   });
+  it('should balance the tree', function(){
+    var values = [6,7,8,9,1,2,3,4,10,11,12,13,14,15,16];
+    _.each(values, function(val){
+      binarySearchTree.insert(val);
+    });
+    binarySearchTree.rebalance();
+    var result = [];
+    binarySearchTree.breadthFirstLog(function(val){
+      result.push(val);
+    });
+    expect(_.isEqual(result, [8,4,12,2,6,10,14,1,3,5,7,9,11,13,15,16])).to.be.true;
+  });
 });

@@ -14,7 +14,6 @@ Graph.prototype = {
     this.nodes[newNode] = nodeAdded;
     
     if (nodeKeys.length === 1) {
-      debugger;
       var firstNode = this.nodes[nodeKeys[0]];
       this.addEdge(firstNode.value, nodeAdded.value);
     }

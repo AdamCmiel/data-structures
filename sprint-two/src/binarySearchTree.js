@@ -57,5 +57,36 @@ var binarySearchTreeMethods = {
 
       callback(inspection.value);
     }
+  }, 
+  rebalance: function(){
+    //Grab the sorted values of the tree
+    var treeNodes = [];
+    this.depthFirstLog(function(val){
+      treeNodes.push(val);
+    });
+    treeNodes = treeNodes.sort(function(a,b){return a-b;});
+
+    //Recursively fill the queue
+    var queue = [];
+    var balance = function(store){
+      var middle = Math.ceil(store.length/2);
+      var left = store.splice(0, middle);
+      var right = store;
+      queue.push(left.pop());
+      left.length  && balance(left);
+      right.length && balance(right);
+    };
+    balance(treeNodes);
+
+    //Rewrite the tree
+    var tree = this;
+    this.value = null;
+    tree.left = null;
+    tree.right = null;
+
+    //Fill the tree
+    _.each(queue, function(node){
+      tree.insert(node);
+    });
   }
 };
