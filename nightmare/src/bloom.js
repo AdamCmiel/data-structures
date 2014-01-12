@@ -14,6 +14,7 @@ var BloomFilter;
   };
 
   BloomFilter.prototype = {
+    constructor: BloomFilter,
     store: function(items){
       var hash;
       var that = this;
@@ -62,4 +63,4 @@ var BloomFilter;
   };
   var hashes = [h1,h2,h3];
 
-})()
+})();
